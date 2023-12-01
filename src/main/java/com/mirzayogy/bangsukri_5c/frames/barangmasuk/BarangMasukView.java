@@ -307,13 +307,14 @@ public class BarangMasukView extends javax.swing.JFrame {
             ResultSet resultSet = statement.executeQuery(selectSQL);
 
             tahunComboBox.removeAllItems();
+            tahunComboBox.addItem("Semua tahun");
             while(resultSet.next()){
                 tahunComboBox.addItem(resultSet.getString("tahun"));
             }
             tahunComboBox.setSelectedIndex(tahunComboBox.getItemCount()-1);
             
             String tahun = tahunComboBox.getSelectedItem().toString();
-
+           
             
             selectSQL = "SELECT BM.id, BM.tanggal, BM.sumber_dana, P.nama_pemasok, K.nama_karyawan " +
                 "FROM barang_masuk BM " +
@@ -354,13 +355,19 @@ public class BarangMasukView extends javax.swing.JFrame {
 
     private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
         String tahun = tahunComboBox.getSelectedItem().toString();
+        String filter;
+            if(tahun.equals("Semua tahun")){
+                filter = " ";
+            } else {
+                filter =  "WHERE YEAR(BM.tanggal) = '"+tahun+"' ";
+            }
         try {
             Connection koneksi = Basisdata.getConnection();
             String selectSQL = "SELECT BM.id, BM.tanggal, BM.sumber_dana, P.nama_pemasok, K.nama_karyawan " +
                     "FROM barang_masuk BM " +
                     "LEFT JOIN pemasok P ON BM.pemasok_id=P.id " +
                     "LEFT JOIN karyawan K ON BM.karyawan_id=K.id " +
-                    "WHERE YEAR(BM.tanggal) = '"+tahun+"' " +
+                    filter +
                     "ORDER BY tanggal DESC";
             Statement statement = koneksi.createStatement();
             ResultSet resultSet = statement.executeQuery(selectSQL);
