@@ -250,8 +250,8 @@ public class BarangMasukView extends javax.swing.JFrame {
     }//GEN-LAST:event_cariButtonActionPerformed
 
     private void tambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahButtonActionPerformed
-//        RuangAddFrame f = new RuangAddFrame();
-//        f.setVisible(true);
+        BarangMasukAddFrame f = new BarangMasukAddFrame();
+        f.setVisible(true);
     }//GEN-LAST:event_tambahButtonActionPerformed
 
     private void ubahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahButtonActionPerformed
